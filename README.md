@@ -26,7 +26,7 @@ dependencies {
 <dependency>
   <groupId>com.github.chain-plugins</groupId>
   <artifactId>bukkit-inventory-serializer</artifactId>
-  <version>1.0</version>
+  <version>1.3</version>
 </dependency>
 ```
 
