@@ -11,7 +11,7 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-    implementation 'com.github.chain-plugins:bukkit-inventory-serializer:1.0'
+    implementation 'com.github.chain-plugins:bukkit-inventory-serializer:1.3'
 }
 ```
 
