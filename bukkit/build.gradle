@@ -1,0 +1,13 @@
+repositories {
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://repo.codemc.org/repository/maven-public/' }
+}
+
+dependencies {
+    compile project(':nms')
+    compile project(':v1_8_R3')
+    compile project(':v1_11_R1')
+    compile project(':v1_14_R1')
+    compileOnly 'org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT'
+    compileOnly 'org.bukkit:craftbukkit:1.16.4-R0.1-SNAPSHOT'
+}

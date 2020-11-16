@@ -1,21 +1,19 @@
-plugins {
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
-    id 'maven'
-    id 'java'
-}
+subprojects {
+    apply plugin: 'java'
 
-group 'com.github.chain-plugins'
-version '1.0'
+    group 'com.github.chain-plugins'
+    version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-}
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+        maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
 
-dependencies {
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
-    compileOnly 'org.projectlombok:lombok:1.18.8'
-    compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
+    dependencies {
+        annotationProcessor 'org.projectlombok:lombok:1.18.8'
+        compileOnly 'org.projectlombok:lombok:1.18.8'
+        compileOnly 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
+    }
 }
