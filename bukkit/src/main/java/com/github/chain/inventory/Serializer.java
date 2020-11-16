@@ -8,7 +8,6 @@ import com.github.chain.inventory.nms.v1_14_R1.v1_14_R1NMS;
 import com.github.chain.inventory.nms.v1_8_R3.v1_8_R3NMS;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Array;
@@ -19,29 +18,41 @@ public class Serializer {
     private static InventoryNMS nmsBridge;
     private static MinecraftVersion version;
 
-    public static String encode(@NonNull Inventory inventory) throws Exception {
+    public static String encode(@NonNull ItemStack[] items) throws Exception {
         checkIfProviderIsSet();
-        ItemStack[] inventoryContents = inventory.getContents();
         Class<?> nmsItemStackClazz = getItemStackClass();
-
-        Object nmsItemArray = Array.newInstance(nmsItemStackClazz, inventoryContents.length);
-        for (int i = 0; i < inventoryContents.length; i++) {
-            Array.set(nmsItemArray, i, toNMSItem(inventoryContents[i]));
+        Object nmsItemArray = Array.newInstance(nmsItemStackClazz, items.length);
+        for (int i = 0; i < items.length; i++) {
+            Array.set(nmsItemArray, i, toNMSItem(items[i]));
         }
 
         return nmsBridge.encode((Object[]) nmsItemArray);
     }
 
-    public static void decode(@NonNull String encoded, @NonNull Inventory inventory) throws Exception {
+    public static ItemStack[] decode(@NonNull String encoded) throws Exception {
         checkIfProviderIsSet();
         Object[] nmsItemStacks = nmsBridge.decode(encoded);
-
-        ItemStack[] inventoryContents = new ItemStack[nmsItemStacks.length];
+        ItemStack[] items = new ItemStack[nmsItemStacks.length];
         for (int i = 0; i < nmsItemStacks.length; i++) {
-            inventoryContents[i] = toBukkitItem(nmsItemStacks[i]);
+            items[i] = toBukkitItem(nmsItemStacks[i]);
         }
 
-        inventory.setContents(inventoryContents);
+        return items;
+    }
+
+    // TODO: refactor
+    public static String encode(@NonNull ItemStack item) throws Exception {
+        checkIfProviderIsSet();
+        ItemStack[] items = new ItemStack[1];
+        items[0] = item;
+        return encode(items);
+    }
+
+    // TODO: refactor
+    public static ItemStack decodeSingular(@NonNull String encoded) throws Exception {
+        checkIfProviderIsSet();
+        Object[] nmsItemStacks = nmsBridge.decode(encoded);
+        return toBukkitItem(nmsItemStacks[0]);
     }
 
     private static ItemStack toBukkitItem(Object itemStack) throws Exception {
